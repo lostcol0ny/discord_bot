@@ -144,12 +144,12 @@
         },
         "blizzardapi2": {
             "hashes": [
-                "sha256:ccedc57b0a99be978be91c2f778cd3438c2b04dbd5815fcb00654281fbc91452",
-                "sha256:f0cc745bbf37bfd7890f8453d2d9de495921be4337b8922ef1beff91da9bb904"
+                "sha256:5b05a7d6d91ce72cb36e213ff1faef32e938787a1c8d5c6342ff0514db8a6077",
+                "sha256:b240797c2457af29ba91c5a7f7bb32b9009312bcff5441655cf97636c933afb9"
             ],
             "index": "pypi",
             "markers": "python_version >= '3.11' and python_version < '4.0'",
-            "version": "==0.1.0"
+            "version": "==0.1.2"
         },
         "certifi": {
             "hashes": [
@@ -538,6 +538,14 @@
             ],
             "markers": "python_version >= '3.8'",
             "version": "==8.2.2"
+        },
+        "pytest-mock": {
+            "hashes": [
+                "sha256:0b72c38033392a5f4621342fe11e9219ac11ec9d375f8e2a0c164539e0d70f6f",
+                "sha256:2719255a1efeceadbc056d6bf3df3d1c5015530fb40cf347c0f9afac88410bd0"
+            ],
+            "markers": "python_version >= '3.8'",
+            "version": "==3.14.0"
         },
         "python-dotenv": {
             "hashes": [
