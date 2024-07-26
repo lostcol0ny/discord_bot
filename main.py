@@ -28,7 +28,9 @@ author_icon_image = "https://i.imgur.com/is26wrA.jpeg"
 @tree.command(name="ping", description="Is the bot responding?")
 @app_commands.checks.cooldown(1, 10, key=lambda i: (i.user.id))
 async def ping(interaction: discord.Interaction) -> None:
-    await interaction.response.send_message(f"Pong! {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}", ephemeral=True)
+    await interaction.response.send_message(
+        f"Pong! {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}", ephemeral=True
+    )
 
     logging.info(
         f"{interaction.command.name}, {interaction.user.name} ({interaction.user.id}), {interaction.guild.name}, {interaction.channel.name} ({interaction.channel.id})"
@@ -56,7 +58,7 @@ async def tww(interaction: discord.Interaction) -> None:
         )
         embed.add_field(name="Early Access (8/22)", value=formatted_tww_ea, inline=True)
         embed.set_footer(text=f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-        
+
         await interaction.followup.send(embed=embed)
 
     except Exception as e:
@@ -78,11 +80,9 @@ async def token(interaction: discord.Interaction) -> None:
         formatted_price = f"**{price // 10000:,}** gold"
 
         embed = discord.Embed(description=formatted_price, color=0x00FF00)
-        embed.set_author(
-            name="Current Token Price", icon_url=author_icon_image
-        )
+        embed.set_author(name="Current Token Price", icon_url=author_icon_image)
         embed.set_footer(text=f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-        
+
         await interaction.followup.send(embed=embed)
 
     except Exception as e:
