@@ -57,7 +57,6 @@ async def tww(interaction: discord.Interaction) -> None:
             name="Full Release (8/26)", value=formatted_tww_release, inline=True
         )
         embed.add_field(name="Early Access (8/22)", value=formatted_tww_ea, inline=True)
-        embed.set_footer(text=f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
         await interaction.followup.send(embed=embed)
 
@@ -75,19 +74,23 @@ async def tww(interaction: discord.Interaction) -> None:
 async def token(interaction: discord.Interaction) -> None:
     await interaction.response.defer()
     try:
-        price: int = blizzard_api.wow.game_data.get_token_index("us", "en_US")["price"]
+        
+        token_obj = blizzard_api.wow.game_data.get_token_index("us", "en_US")
+        price: int = token_obj["price"]
 
         formatted_price = f"**{price // 10000:,}** gold"
+        
+        formatted_time = datetime.fromtimestamp(token_obj["last_updated_timestamp"]).strftime('%Y-%m-%d %H:%M:%S')
 
         embed = discord.Embed(description=formatted_price, color=0x00FF00)
         embed.set_author(name="Current Token Price", icon_url=author_icon_image)
-        embed.set_footer(text=f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+        embed.set_footer(text=f"As of {formatted_time}")
 
         await interaction.followup.send(embed=embed)
 
     except Exception as e:
         await interaction.followup.send(f"An error occurred: {str(e)}")
-        logging.error(f"An error occurred: {str(e)}")
+        logging.error(f"An error occurred: {str(e)}\n\nResponse from server:\n\n{token_obj}")
 
     logging.info(
         f"{interaction.command.name}, {interaction.user.name} ({interaction.user.id}), {interaction.guild.name}, {interaction.channel.name} ({interaction.channel.id})"
