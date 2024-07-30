@@ -74,7 +74,6 @@ async def tww(interaction: discord.Interaction) -> None:
 async def token(interaction: discord.Interaction) -> None:
     await interaction.response.defer()
     try:
-        
         token_obj = blizzard_api.wow.game_data.get_token_index("us", "en_US")
         price: int = token_obj["price"]
 
@@ -95,6 +94,7 @@ async def token(interaction: discord.Interaction) -> None:
     logging.info(
         f"{interaction.command.name}, {interaction.user.name} ({interaction.user.id}), {interaction.guild.name}, {interaction.channel.name} ({interaction.channel.id})"
     )
+    logging.debug(token_obj)
 
 
 @tree.error
