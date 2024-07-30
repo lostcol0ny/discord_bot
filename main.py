@@ -76,11 +76,13 @@ async def token(interaction: discord.Interaction) -> None:
     try:
         token_obj = blizzard_api.wow.game_data.get_token_index("us", "en_US")
         price: int = token_obj["price"]
+        time: int = token_obj["last_updated_timestamp"] / 1000
 
         formatted_price = f"**{price // 10000:,}** gold"
         
-        formatted_time = datetime.fromtimestamp(token_obj["last_updated_timestamp"]).strftime('%Y-%m-%d %H:%M:%S')
-
+        # Convert from epoch time to human readable time
+        formatted_time = datetime.fromtimestamp(time).strftime("%c")
+        
         embed = discord.Embed(description=formatted_price, color=0x00FF00)
         embed.set_author(name="Current Token Price", icon_url=author_icon_image)
         embed.set_footer(text=f"As of {formatted_time}")
@@ -89,7 +91,7 @@ async def token(interaction: discord.Interaction) -> None:
 
     except Exception as e:
         await interaction.followup.send(f"An error occurred: {str(e)}")
-        logging.error(f"An error occurred: {str(e)}\n\nResponse from server:\n\n{token_obj}")
+        logging.error(f"An error occurred: {str(e)}")
 
     logging.info(
         f"{interaction.command.name}, {interaction.user.name} ({interaction.user.id}), {interaction.guild.name}, {interaction.channel.name} ({interaction.channel.id})"
