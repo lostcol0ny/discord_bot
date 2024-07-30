@@ -79,10 +79,10 @@ async def token(interaction: discord.Interaction) -> None:
         time: int = token_obj["last_updated_timestamp"] / 1000
 
         formatted_price = f"**{price // 10000:,}** gold"
-        
+
         # Convert from epoch time to human readable time
         formatted_time = datetime.fromtimestamp(time).strftime("%c")
-        
+
         embed = discord.Embed(description=formatted_price, color=0x00FF00)
         embed.set_author(name="Current Token Price", icon_url=author_icon_image)
         embed.set_footer(text=f"As of {formatted_time}")
@@ -97,6 +97,43 @@ async def token(interaction: discord.Interaction) -> None:
         f"{interaction.command.name}, {interaction.user.name} ({interaction.user.id}), {interaction.guild.name}, {interaction.channel.name} ({interaction.channel.id})"
     )
     logging.debug(token_obj)
+
+
+@tree.command(name="realm", description="Get the current WoW realm status")
+@app_commands.checks.cooldown(1, 10, key=lambda i: (i.channel.id))
+async def realm(interaction: discord.Interaction, realm_id: int = 57) -> None:
+    await interaction.response.defer()
+    try:
+        realm_obj = blizzard_api.wow.game_data.get_connected_realm(
+            "us", "en_US", realm_id # Default to Illidan (id: 57)
+        )
+
+        realm_name = realm_obj["realms"][0]["name"]
+        realm_status = realm_obj["status"]["name"]
+        realm_queue = realm_obj["has_queue"]
+        realm_population = realm_obj["population"]["name"]
+
+        if realm_status == "Up":
+            color = 0x00FF00 # Green
+        else:
+            color = 0xFF0000 # Red
+
+        embed = discord.Embed(description=f"{realm_name} Status", color=color)
+        embed.set_author(name="WoW Realm Status", icon_url=author_icon_image)
+        embed.add_field(name="Status", value=realm_status, inline=True)
+        embed.add_field(name="Population", value=realm_population, inline=True)
+        embed.add_field(name="Queue", value=realm_queue, inline=True)
+
+        await interaction.followup.send(embed=embed)
+
+    except Exception as e:
+        await interaction.followup.send(f"An error occurred: {str(e)}")
+        logging.error(f"An error occurred: {str(e)}")
+
+    logging.info(
+        f"{interaction.command.name}, {interaction.user.name} ({interaction.user.id}), {interaction.guild.name}, {interaction.channel.name} ({interaction.channel.id})"
+    )
+    logging.debug(realm_obj)
 
 
 @tree.error
