@@ -51,16 +51,6 @@ tree = app_commands.CommandTree(client)
 blizzard_api = BlizzardApi(config.BNET_CLIENT_ID, config.BNET_CLIENT_SECRET)
 
 
-# Custom cooldown decorator
-def cooldown(seconds: int, key: str = "default"):
-    def decorator(func):
-        func.__cooldown = app_commands.Cooldown(1, seconds)
-        func.__cooldown_key = key
-        return func
-
-    return decorator
-
-
 # Error handler
 @tree.error
 async def on_app_command_error(
