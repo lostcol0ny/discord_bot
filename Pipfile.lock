@@ -152,12 +152,12 @@
         },
         "blizzardapi2": {
             "hashes": [
-                "sha256:b9125b27f07f0bc1fc5c2c36b962fa7400f99ede38da9497455da89e6f6a31be",
-                "sha256:ec4c27d12edf118e4430374b0c972ed9a095f47fcc457d19f785a3edac654b82"
+                "sha256:59793101c8c87aefdff4c5935cb7b11f599345fba2f67f6bf7e1ead9b8057abe",
+                "sha256:b6887b2976cdad125faa9c79a981b33a81e8d87e9771cd24ee2a6c59359a2f18"
             ],
             "index": "pypi",
             "markers": "python_version >= '3.11' and python_version < '4.0'",
-            "version": "==0.1.7"
+            "version": "==1.0.0"
         },
         "certifi": {
             "hashes": [
