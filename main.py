@@ -4,10 +4,10 @@ import logging
 from datetime import datetime
 from typing import Any, Dict, Optional
 
-import discord
-from discord import app_commands
-from dotenv import load_dotenv
-from blizzardapi2 import BlizzardApi
+import discord  # type: ignore
+from discord import app_commands  # type: ignore
+from dotenv import load_dotenv  # type: ignore
+from blizzardapi2 import BlizzardApi  # type: ignore
 
 # Constants
 AUTHOR_ICON_IMAGE: str = "https://i.imgur.com/is26wrA.jpeg"
@@ -188,6 +188,7 @@ async def on_app_command_error(
         logging.info(
             f"Cooldown. {interaction.command.name}, {interaction.user.name} ({interaction.user.id}), {interaction.guild.name}, {interaction.channel.name} ({interaction.channel.id})"
         )
+
 
 @client.event
 async def on_ready():
