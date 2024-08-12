@@ -165,6 +165,15 @@ async def realm(
         await interaction.followup.send(f"An error occurred: {str(e)}", ephemeral=True)
         logging.error(f"Error in realm command: {str(e)}\n{realm_obj}")
 
+@tree.command(name="profile", description="Test")
+@app_commands.checks.cooldown(1, 10, key=lambda i: (i.channel.id))
+async def realm(
+    interaction: discord.Interaction,
+) -> None:
+    await interaction.response.defer()
+    profile = blizzard_api.wow.get_account_profile_summary("us", "en_US")
+    print(profile)
+
 
 @tree.error
 async def on_app_command_error(
