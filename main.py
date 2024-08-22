@@ -7,7 +7,7 @@ from typing import Any, Dict, Optional
 import discord  # type: ignore
 from discord import app_commands  # type: ignore
 from dotenv import load_dotenv  # type: ignore
-blizzardapi2 import BlizzardApi  # type: ignore
+from blizzardapi2 import BlizzardApi  # type: ignore
 
 # Constants
 AUTHOR_ICON_IMAGE: str = "https://i.imgur.com/is26wrA.jpeg"
