@@ -7,7 +7,8 @@ from typing import Any, Dict, Optional
 import discord  # type: ignore
 from discord import app_commands  # type: ignore
 from dotenv import load_dotenv  # type: ignore
-from blizzardapi2 import BlizzardApi  # type: ignore
+#from blizzardapi2 import BlizzardApi  # type: ignore
+from wowapi-py import Api # type: ignore
 
 # Constants
 AUTHOR_ICON_IMAGE: str = "https://i.imgur.com/is26wrA.jpeg"
@@ -18,6 +19,7 @@ DEFAULT_REALM_ID: int = 57
 
 # Configuration
 load_dotenv()
+
 
 
 def get_env(key: str) -> str:
@@ -48,7 +50,7 @@ client = discord.Client(intents=intents)
 tree = app_commands.CommandTree(client)
 
 # Blizzard API setup
-blizzard_api = BlizzardApi(config.BNET_CLIENT_ID, config.BNET_CLIENT_SECRET)
+blizzard_api = Api(config.BNET_CLIENT_ID, config.BNET_CLIENT_SECRET)
 
 
 # Error handler
@@ -88,7 +90,7 @@ async def tww(interaction: discord.Interaction) -> None:
     try:
         now = datetime.now()
         tww_release = datetime(2024, 8, 26, 17, 0, 0)
-        tww_ea = datetime(2024, 8, 22, 17, 0, 0)
+        tww_ea = datetime(2024, 8, 23, 1, 0, 0)
 
         def format_timedelta(delta):
             return f"{delta.days} days, {delta.seconds // 3600} hours, {delta.seconds // 60 % 60} minutes, {delta.seconds % 60} seconds"
