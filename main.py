@@ -89,7 +89,7 @@ async def tww(interaction: discord.Interaction) -> None:
     try:
         now = datetime.now()
         tww_release = datetime(2024, 8, 26, 17, 0, 0)
-        tww_ea = datetime(2024, 8, 23, 1, 0, 0)
+        tww_ea = datetime(2024, 8, 22, 17, 0, 0)
 
         def format_timedelta(delta):
             return f"{delta.days} days, {delta.seconds // 3600} hours, {delta.seconds // 60 % 60} minutes, {delta.seconds % 60} seconds"
