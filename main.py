@@ -7,8 +7,7 @@ from typing import Any, Dict, Optional
 import discord  # type: ignore
 from discord import app_commands  # type: ignore
 from dotenv import load_dotenv  # type: ignore
-#from blizzardapi2 import BlizzardApi  # type: ignore
-from wowapi-py import Api # type: ignore
+blizzardapi2 import BlizzardApi  # type: ignore
 
 # Constants
 AUTHOR_ICON_IMAGE: str = "https://i.imgur.com/is26wrA.jpeg"
@@ -50,7 +49,7 @@ client = discord.Client(intents=intents)
 tree = app_commands.CommandTree(client)
 
 # Blizzard API setup
-blizzard_api = Api(config.BNET_CLIENT_ID, config.BNET_CLIENT_SECRET)
+blizzard_api = BlizzardApi(config.BNET_CLIENT_ID, config.BNET_CLIENT_SECRET)
 
 
 # Error handler
