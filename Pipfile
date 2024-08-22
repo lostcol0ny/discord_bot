@@ -8,6 +8,7 @@ discord = "*"
 nose = "*"
 python-dotenv = "*"
 blizzardapi2 = "*"
+pytz = "*"
 
 [dev-packages]
 
