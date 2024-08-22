@@ -9,6 +9,7 @@ nose = "*"
 python-dotenv = "*"
 blizzardapi2 = "*"
 pytz = "*"
+tzdata = "*"
 
 [dev-packages]
 

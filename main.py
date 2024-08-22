@@ -1,10 +1,10 @@
 import os
 import sys
 import logging
-import pytz
 from datetime import datetime
 from typing import Any, Dict, Optional
 
+import pytz # type: ignore
 import discord  # type: ignore
 from discord import app_commands  # type: ignore
 from dotenv import load_dotenv  # type: ignore
@@ -19,7 +19,6 @@ DEFAULT_REALM_ID: int = 57
 
 # Configuration
 load_dotenv()
-
 
 
 def get_env(key: str) -> str:
@@ -88,10 +87,13 @@ async def ping(interaction: discord.Interaction) -> None:
 async def tww(interaction: discord.Interaction) -> None:
     await interaction.response.defer()
     try:
-        tz = pytz.timezone('America/Chicago')
-        now = tz.localize(datetime.now())
-        tww_release = tz.localize(datetime(2024, 8, 26, 17, 0, 0))
-        tww_ea = tz.localize(datetime(2024, 8, 22, 17, 0, 0))
+        # Timezones, man
+        cst = pytz.timezone("America/Chicago")
+        now = datetime.now(cst)
+        
+        # 5 PM on respective days
+        tww_release = cst.localize(datetime(2024, 8, 26, 17, 0, 0))
+        tww_ea = cst.localize(datetime(2024, 8, 22, 17, 0, 0))
 
         def format_timedelta(delta):
             return f"{delta.days} days, {delta.seconds // 3600} hours, {delta.seconds // 60 % 60} minutes, {delta.seconds % 60} seconds"
@@ -167,6 +169,7 @@ async def realm(
     except Exception as e:
         await interaction.followup.send(f"An error occurred: {str(e)}", ephemeral=True)
         logging.error(f"Error in realm command: {str(e)}\n{realm_obj}")
+
 
 @tree.command(name="profile", description="Test")
 @app_commands.checks.cooldown(1, 10, key=lambda i: (i.channel.id))
