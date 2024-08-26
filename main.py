@@ -103,12 +103,12 @@ async def tww(interaction: discord.Interaction) -> None:
         embed.set_image(url=TWW_IMAGE_URL)
         embed.add_field(
             name="Full Release (8/26)",
-            value=format_timedelta(tww_release - now),
+            value=format_timedelta(tww_release - now) if tww_release > now else "It's released! Go play!",
             inline=True,
         )
         embed.add_field(
             name="Early Access (8/22)",
-            value=format_timedelta(tww_ea - now),
+            value=format_timedelta(tww_ea - now) if tww_ea > now else "Go farm mining before everyone else can!",
             inline=True,
         )
 
