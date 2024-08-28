@@ -105,17 +105,17 @@ async def tww(interaction: discord.Interaction) -> None:
         embed.add_field(
             name="9/10: S1 Opens. LFR Wing 1, Heroic Raid, Mythic 0, World Bosses",
             value=format_timedelta(tww_season1_start - now) if tww_season1_start > now else "Go raid!",
-            inline=True,
+            inline=False,
         )
         embed.add_field(
             name="9/17: Mythic Raid, LFR Wing 2, M+ Opens",
             value=format_timedelta(tww_mplus - now) if tww_mplus > now else "Get KSM!",
-            inline=True,
+            inline=False,
         )
         embed.add_field(
             name="9/24: LFR Wing 3",
             value=format_timedelta(tww_wing3 - now) if tww_wing3 > now else "Go do LFR?",
-            inline=True,
+            inline=False,
         )
 
         await interaction.followup.send(embed=embed)
