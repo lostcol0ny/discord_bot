@@ -92,8 +92,9 @@ async def tww(interaction: discord.Interaction) -> None:
         now = datetime.now(cst)
         
         # 5 PM on respective days
-        tww_release = cst.localize(datetime(2024, 8, 26, 17, 0, 0))
-        tww_ea = cst.localize(datetime(2024, 8, 22, 17, 0, 0))
+        tww_season1_start = cst.localize(datetime(2024, 9, 12, 10, 0, 0))
+        tww_mplus = cst.localize(datetime(2024, 9, 17, 12, 0, 0))
+        tww_wing3 = cst.localize(datetime(2024, 9, 24, 12, 0, 0))
 
         def format_timedelta(delta):
             return f"{delta.days} days, {delta.seconds // 3600} hours, {delta.seconds // 60 % 60} minutes, {delta.seconds % 60} seconds"
@@ -102,13 +103,18 @@ async def tww(interaction: discord.Interaction) -> None:
         embed.set_author(name="Countdown to The War Within", icon_url=AUTHOR_ICON_IMAGE)
         embed.set_image(url=TWW_IMAGE_URL)
         embed.add_field(
-            name="Full Release (8/26)",
-            value=format_timedelta(tww_release - now) if tww_release > now else "It's released! Go play!",
+            name="Season 1 Starts (9/10): Raid Finder Wing 1, Heroic Nerub-at Palace, Mythic 0, World Bosses, Heroic Seasonal Dungeons",
+            value=format_timedelta(tww_season1_start - now) if tww_season1_start > now else "It's released! Go play!",
             inline=True,
         )
         embed.add_field(
-            name="Early Access (8/22)",
-            value=format_timedelta(tww_ea - now) if tww_ea > now else "Go farm mining before everyone else can!",
+            name="9/17: Mythic Nerub-ar Palace, Raid Finder Wing 2, Story Difficulty for Nerub-ar Palace, M+ Available",
+            value=format_timedelta(tww_mplus - now) if tww_mplus > now else "Go grind!",
+            inline=True,
+        )
+        embed.add_field(
+            name="9/24: Raid Finder Wing 3",
+            value=format_timedelta(tww_wing3 - now) if tww_wing3 > now else "Go grind!",
             inline=True,
         )
 
@@ -151,7 +157,7 @@ async def realm(
         realm_obj = blizzard_api.wow.game_data.get_connected_realm(
             "us", "en_US", realm_id
         )
-
+        
         realm_name = realm_obj["realms"][0]["name"]
         realm_status = realm_obj["status"]["name"]
         realm_queue = realm_obj["has_queue"]
