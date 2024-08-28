@@ -93,8 +93,8 @@ async def tww(interaction: discord.Interaction) -> None:
         
         # 5 PM on respective days
         tww_season1_start = cst.localize(datetime(2024, 9, 12, 10, 0, 0))
-        tww_mplus = cst.localize(datetime(2024, 9, 17, 12, 0, 0))
-        tww_wing3 = cst.localize(datetime(2024, 9, 24, 12, 0, 0))
+        tww_mplus = cst.localize(datetime(2024, 9, 17, 10, 0, 0))
+        tww_wing3 = cst.localize(datetime(2024, 9, 24, 10, 0, 0))
 
         def format_timedelta(delta):
             return f"{delta.days} days, {delta.seconds // 3600} hours, {delta.seconds // 60 % 60} minutes, {delta.seconds % 60} seconds"
@@ -103,18 +103,18 @@ async def tww(interaction: discord.Interaction) -> None:
         embed.set_author(name="Countdown to The War Within", icon_url=AUTHOR_ICON_IMAGE)
         embed.set_image(url=TWW_IMAGE_URL)
         embed.add_field(
-            name="Season 1 Starts (9/10): Raid Finder Wing 1, Heroic Nerub-at Palace, Mythic 0, World Bosses, Heroic Seasonal Dungeons",
-            value=format_timedelta(tww_season1_start - now) if tww_season1_start > now else "It's released! Go play!",
+            name="9/10: S1 Opens. LFR Wing 1, Heroic Raid, Mythic 0, World Bosses",
+            value=format_timedelta(tww_season1_start - now) if tww_season1_start > now else "Go raid!",
             inline=True,
         )
         embed.add_field(
-            name="9/17: Mythic Nerub-ar Palace, Raid Finder Wing 2, Story Difficulty for Nerub-ar Palace, M+ Available",
-            value=format_timedelta(tww_mplus - now) if tww_mplus > now else "Go grind!",
+            name="9/17: Mythic Raid, LFR Wing 2, M+ Opens",
+            value=format_timedelta(tww_mplus - now) if tww_mplus > now else "Get KSM!",
             inline=True,
         )
         embed.add_field(
-            name="9/24: Raid Finder Wing 3",
-            value=format_timedelta(tww_wing3 - now) if tww_wing3 > now else "Go grind!",
+            name="9/24: LFR Wing 3",
+            value=format_timedelta(tww_wing3 - now) if tww_wing3 > now else "Go do LFR?",
             inline=True,
         )
 
