@@ -99,7 +99,7 @@ async def tww(interaction: discord.Interaction) -> None:
         def format_timedelta(delta):
             return f"{delta.days} days, {delta.seconds // 3600} hours, {delta.seconds // 60 % 60} minutes, {delta.seconds % 60} seconds"
 
-        embed = discord.Embed(description="", color=COLOR_GREEN)
+        embed = discord.Embed(description="", color=COLOR_GREEN, timestamp=now)
         embed.set_author(name="Countdown to The War Within", icon_url=AUTHOR_ICON_IMAGE)
         embed.set_image(url=TWW_IMAGE_URL)
         embed.add_field(
@@ -117,6 +117,23 @@ async def tww(interaction: discord.Interaction) -> None:
             value=format_timedelta(tww_wing3 - now) if tww_wing3 > now else "Go do LFR?",
             inline=False,
         )
+        
+        embed.add_field(
+            name="Dungeon Pool",
+            value="[Ara-Kara, City of Echoes](https://www.wowhead.com/guide/the-war-within/dungeons/ara-kara-city-of-echoes-overview)\n"
+            "[The Stonevault](https://www.wowhead.com/guide/the-war-within/dungeons/the-stonevault-overview)\n"
+            "[Mists of Tirna Scithe](https://www.wowhead.com/guide/mythic-plus-dungeons/the-war-within-season-1/mists-of-tirna-scithe)\n"
+            "[Siege of Boralus](https://www.wowhead.com/guide/mythic-plus-dungeons/the-war-within-season-1/siege-of-boralus)",
+            inline=True
+        )
+        embed.add_field(
+            name="Dungeon Pool",
+            value="[City of Threads](https://www.wowhead.com/guide/the-war-within/dungeons/city-of-threads-overview)\n"
+            "[The Dawnbreaker](https://www.wowhead.com/guide/the-war-within/dungeons/the-dawnbreaker-overview)\n"
+            "[The Necrotic Wake](https://www.wowhead.com/guide/mythic-plus-dungeons/the-war-within-season-1/the-necrotic-wake)\n"
+            "[Grim Batol](https://www.wowhead.com/guide/mythic-plus-dungeons/the-war-within-season-1/grim-batol)",
+            inline=True
+        )
 
         await interaction.followup.send(embed=embed)
     except Exception as e:
@@ -129,6 +146,9 @@ async def tww(interaction: discord.Interaction) -> None:
 async def token(interaction: discord.Interaction) -> None:
     await interaction.response.defer()
     try:
+        cst = pytz.timezone("America/Chicago")
+        now = datetime.now(cst)
+        
         token_obj = blizzard_api.wow.game_data.get_token_index("us", "en_US")
 
         price: int = token_obj["price"]
@@ -137,9 +157,9 @@ async def token(interaction: discord.Interaction) -> None:
         formatted_price = f"**{price // 10000:,}** gold"
         formatted_time = datetime.fromtimestamp(time).strftime("%c")
 
-        embed = discord.Embed(description=formatted_price, color=COLOR_GREEN)
+        embed = discord.Embed(description=formatted_price, color=COLOR_GREEN, timestamp=now)
+        embed.add_field(name="", value=f"As of {formatted_time}", inline=False)
         embed.set_author(name="Current Token Price", icon_url=AUTHOR_ICON_IMAGE)
-        embed.set_footer(text=f"As of {formatted_time}")
 
         await interaction.followup.send(embed=embed)
     except Exception as e:
@@ -154,6 +174,9 @@ async def realm(
 ) -> None:
     await interaction.response.defer()
     try:
+        cst = pytz.timezone("America/Chicago")
+        now = datetime.now(cst)        
+        
         realm_obj = blizzard_api.wow.game_data.get_connected_realm(
             "us", "en_US", realm_id
         )
@@ -165,7 +188,7 @@ async def realm(
 
         color = COLOR_GREEN if realm_status == "Up" else COLOR_RED
 
-        embed = discord.Embed(description=f"{realm_name} Status", color=color)
+        embed = discord.Embed(description=f"{realm_name} Status", color=color, timestamp=now)
         embed.set_author(name="WoW Realm Status", icon_url=AUTHOR_ICON_IMAGE)
         embed.add_field(name="Status", value=realm_status, inline=True)
         embed.add_field(name="Population", value=realm_population, inline=True)
@@ -175,16 +198,6 @@ async def realm(
     except Exception as e:
         await interaction.followup.send(f"An error occurred: {str(e)}", ephemeral=True)
         logging.error(f"Error in realm command: {str(e)}\n{realm_obj}")
-
-
-@tree.command(name="profile", description="Test")
-@app_commands.checks.cooldown(1, 10, key=lambda i: (i.channel.id))
-async def realm(
-    interaction: discord.Interaction,
-) -> None:
-    await interaction.response.defer()
-    profile = blizzard_api.wow.get_account_profile_summary("us", "en_US")
-    print(profile)
 
 
 @tree.error
