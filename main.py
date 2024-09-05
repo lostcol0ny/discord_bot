@@ -92,7 +92,7 @@ async def tww(interaction: discord.Interaction) -> None:
         now = datetime.now(cst)
         
         # 5 PM on respective days
-        tww_season1_start = cst.localize(datetime(2024, 9, 12, 10, 0, 0))
+        tww_season1_start = cst.localize(datetime(2024, 9, 10, 10, 0, 0))
         tww_mplus = cst.localize(datetime(2024, 9, 17, 10, 0, 0))
         tww_wing3 = cst.localize(datetime(2024, 9, 24, 10, 0, 0))
 
@@ -103,12 +103,12 @@ async def tww(interaction: discord.Interaction) -> None:
         embed.set_author(name="Countdown to The War Within", icon_url=AUTHOR_ICON_IMAGE)
         embed.set_image(url=TWW_IMAGE_URL)
         embed.add_field(
-            name="9/10: S1 Opens. LFR Wing 1, Heroic Raid, Mythic 0, World Bosses",
+            name="9/10: S1 Opens. LFR Wing 1, Normal/Heroic Raid, Mythic 0, Delve 4+, World Bosses",
             value=format_timedelta(tww_season1_start - now) if tww_season1_start > now else "Go raid!",
             inline=False,
         )
         embed.add_field(
-            name="9/17: Mythic Raid, LFR Wing 2, M+ Opens",
+            name="9/17: Mythic Raid, LFR Wing 2, M+ Opens, Great Vault Opens",
             value=format_timedelta(tww_mplus - now) if tww_mplus > now else "Get KSM!",
             inline=False,
         )
